@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	<style>
+	@font-face {
+	  font-family: 'Intro';
+	  src: url("Intro.otf");
+	  font-weight: normal;
+	  font-style: normal;
+	}
+	@font-face {
+	  font-family: 'Intro';
+	  src: url("Intro.otf");
+	  font-weight: bold; /*It's bold enough; browser faux-bolding is annoying.*/
+	  font-style: normal;
+	}
+	
+	
+	.slider{
+		position: relative;
+		opacity: 0;
+		transition: left 1s, top 1s, right 1s, bottom 1s, opacity 1s;
+	}
+	
+	body{
+		overflow:hidden;
+		zoom:0.6;
+		text-align: center;
+		font-family: Intro, Arial, sans-serif;
+		background-color: #666;
+		padding: 3em;
+	}
+
+	h1{
+		margin-top: 1em;
+		margin-bottom: -0.2em;
+		text-align:center;
+		font-size:8em;
+		display:block;
+		font-weight: bold;
+		font-family: Montserrat, Intro, Arial, sans-serif;
+		//font-variant: small-caps; /*for Intro*/
+	}	
+	#live{
+		font-size: 4em;
+		font-family: Intro, Arial, sans-serif;
+		margin: 0;
+		margin-bottom: 0.6em;
+		color: black;
+	}
+	h2 span{
+		vertical-align: middle;
+		font-size: 0.6em;
+		color: #ffc747;
+	}
+
+	#clock{
+		font-size:10em;
+		display: inline-block;
+		font-weight: bold;
+		
+		left: 200px;
+	}
+	#clock td{
+		width: 2em;
+		text-align: right;
+		overflow: hidden;
+	}
+	#clock td small{
+		font-size: 0.5em;
+		width: 1em;
+		text-align: left;
+	}
+	
+	#caption{
+		margin-top: 1em;
+		font-size: 3.5em;
+		text-align:center;
+		color: #aaa;
+		
+		left: -200px;
+	}
+	#caption span{
+		display: inline-block; //Preferentially wrap between those two parts
+							//then if needed wrap more as necessary
+	}
+	
+	#button{
+		background-color: rgba(71, 154, 255, 0.8);
+		text-decoration: none;
+		border-radius: 8px;
+		font-size: 2em;
+		padding: 1.5em 2em;
+		margin-top: 1.5em;
+		color: white;
+		transition: background-color 0.3s, top 1s, opacity 1s; /*conflicts :( */
+		display: inline-block;
+		
+		top: 100px;
+	}
+	#button:hover{
+		background-color: rgba(71, 154, 255, 1.0);
+	}
+	
+	svg{
+		position:fixed;
+		left:-100px;right:-100px;top:-100px;bottom:-100px;
+		background-color: white;
+		z-index:-100;
+		opacity:0.5;
+	}
+	</style>
+	<noscript>
+		<style>
+			#clock, #caption, #button, #live{left: 0; opacity: 1;}
+		</style>
+	</noscript>
+</head>
+<body>
+<div>
+	<h1>
+		<span style='color:#fff;'>&lt;&nbsp;Lex</span><span style='color:#ffc747'>Hack&nbsp;&gt;</span>
+	</h1>
+	<h2 id="live" class="slider">
+		{<span>live</span>}
+	</h2>
+	<table id="clock" class="slider">
+		<tr>
+			<td><span id="d">58</span><small>d</small></td>
+			<td><span id="h">21</span><small>h</small></td>
+			<td><span id="m">12</span><small>m</small></td>
+			<td><span id="s">39</span><small>s</small></td>
+		</tr>
+	</table>
+	<div id="caption" class="slider">
+		<span>opening ceremony</span> <span style="color:#eee">Sept. 19, 2015, 8AM @ LHS Auditorium</span>
+	</div>
+	
+	<a href="http://lexhack.org" id="button" class="slider">
+				Main Website
+			</a>
+</div>
+	
+	<script>
+	(function(){
+		function updateTime(){
+			var result = "";
+			var totalSec = (Date.parse("Sep 19 2015 8:00:00 AM") - Date.now())/1000;
+			var days = parseInt( totalSec / 86400 );
+			var hours = parseInt( totalSec / 3600 ) % 24;
+			var minutes = parseInt( totalSec / 60 ) % 60;
+			var seconds = totalSec % 60;
+			var seconds = Math.floor(seconds);
+
+			document.getElementById("d").innerHTML = days < 10 ? "0" + days : days;
+			document.getElementById("h").innerHTML = hours < 10 ? "0" + hours : hours;
+			document.getElementById("m").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+			document.getElementById("s").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+		}
+		updateTime();
+		
+		function slider(id, ms){
+			setTimeout(function(){
+				el = document.getElementById(id);
+				el.style.top="0";
+				el.style.left="0";
+				el.style.right="0";
+				el.style.bottom="0";
+				el.style.opacity="1";
+			}, ms);
+		}
+		
+		setInterval(updateTime,300);
+		slider("clock",500);
+		slider("caption",1000);
+		slider("button",1500);
+		slider("live",2000);
+	})();
+	</script>
+	
+	<!--Delaunay Triangulation Background-->
+<!--Very modified from http://bl.ocks.org/mbostock/4341156-->
+<style>
+
+path{
+stroke: transparent;
+fill: transparent;
+}
+
+//Derived from LexHack orange (#ffc747) using http://www.hexcolortool.com/
+.PiYG .q0-9{fill:#3d2b00}
+.PiYG .q1-9{fill:#523900}
+.PiYG .q2-9{fill:#614400}
+.PiYG .q3-9{fill:#996b00}
+.PiYG .q4-9{fill:#cc8f00}
+.PiYG .q5-9{fill:#f5ab00}
+.PiYG .q6-9{fill:#ffc338}
+.PiYG .q7-9{fill:#ffd061}
+.PiYG .q8-9{fill:#ffe099}
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$(function(){
+
+var width = $(document).width()+200,
+    height = $(document).height()+300,
+	points = 500;
+
+var pixels = [ //Octave is actually pretty cool.
+	[12, 3],
+	[11, 4],
+	[13, 4],
+	[10, 5],
+	[14, 5],
+	[10, 7],
+	[11, 7],
+	[12, 7],
+	[13, 7],
+	[14, 7],
+	[14, 8],
+	[14, 9],
+	[12, 10],
+	[13, 10],
+	[11, 11],
+	[14, 11],
+	[12, 12],
+	[14, 12],
+	[11, 13],
+	[13, 13],
+	[14, 13],
+	[12, 14],
+	[13, 14],
+	[11, 15],
+	[13, 15],
+	[14, 15],
+	[10, 17],
+	[11, 17],
+	[12, 17],
+	[13, 17],
+	[14, 17],
+	[12, 18],
+	[10, 19],
+	[11, 19],
+	[12, 19],
+	[13, 19],
+	[14, 19],
+	[11, 21],
+	[13, 21],
+	[14, 21],
+	[11, 22],
+	[14, 22],
+	[11, 23],
+	[12, 23],
+	[13, 23],
+	[14, 23],
+	[12, 24],
+	[13, 24],
+	[11, 25],
+	[14, 25],
+	[11, 26],
+	[12, 26],
+	[14, 26],
+	[10, 28],
+	[11, 28],
+	[12, 28],
+	[13, 28],
+	[14, 28],
+	[12, 29],
+	[13, 29],
+	[11, 30],
+	[14, 30],
+	[10, 32],
+	[14, 32],
+	[11, 33],
+	[13, 33],
+	[12, 34]
+];
+var pixelswidth = 38;
+var pixelsheight = 26;
+
+var vertices = d3.range(points).map(function(d) {
+  var y = 0;
+  if(Math.random()<.1)
+	y = Math.random()*height;
+  else
+	y = Math.random()*height/3 + height/3;
+  return [Math.random() * width, y];
+});
+
+var vertexvels = d3.range(points).map(function(d){
+	return [Math.random()*6 - 3, Math.random()*6 - 3];
+});
+
+vertices[0] = [0,0];
+vertices[1] = [width,0];
+vertices[2] = [0,height];
+vertices[3] = [width,height];
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("class", "PiYG");
+
+var path = svg.append("g").selectAll("path");
+
+
+var colors = [];
+
+redraw();
+
+setInterval(function(){
+  for(var i = 4; i < points; i++){
+	if(vertices[i][0] < 0 || vertices [i][0] > width) vertexvels[i][0] *= -1;
+	if(vertices[i][1]>height/3 && vertices[i][1]<2*height/3){
+		vertices[i][1] += vertexvels[i][1]/10; //slow down while in the detail zone
+		vertices[i][0] += vertexvels[i][0]/4;
+	}
+	else{
+		vertices[i][1] += vertexvels[i][1];
+		vertices[i][0] += vertexvels[i][0];
+	}
+	if(vertices[i][1] < 0 || vertices [i][1] > height) vertexvels[i][1] *= -1;
+  }
+  redraw();
+},200);
+
+function redraw() {
+  path = path.data(d3.geom.delaunay(vertices).map(function(d,elemInd) {
+	var x=(d[0][0]+d[1][0]+d[2][0])/3;
+	var y=(d[0][1]+d[1][1]+d[2][1])/3;
+	
+	colors[elemInd] = "rgb(110,119,136)";
+	for(var j=0;j<pixels.length;j++){
+		if(pixels[j][1]==Math.floor(x * pixelswidth / width)
+			&& pixels[j][0]==Math.floor(y * pixelsheight / height)){
+			if(pixels[j][1] > 15)
+				colors[elemInd] = "#ffc747";
+			else
+				colors[elemInd] = "#eee";
+			break;
+		}
+	}
+	return "M" + d.join("L") + "Z";
+  }), String);
+  path.exit().remove();
+  path.enter().append("path").attr("style",function(d,i){return "fill:"+colors[i];}).attr("d", String);
+}
+});
+
+</script>
+	
+</body>
+</html>
