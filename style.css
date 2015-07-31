@@ -1,13 +1,17 @@
 
 @font-face {
   font-family: 'Intro';
-  src: url("Intro.otf");
+  src: url("intro-webfont.eot");
+  src: url("intro-webfont.eot") format("embedded-opentype"),
+      url("Intro.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Intro';
-  src: url("Intro.otf");
+  src: url("intro-webfont.eot");
+  src: url("intro-webfont.eot") format("embedded-opentype"),
+      url("Intro.otf") format("opentype");
   font-weight: bold; /*It's bold enough; browser faux-bolding is annoying.*/
   font-style: normal;
 }
@@ -90,7 +94,7 @@ h1 .first-letter{font-size: 1.15em;} /*For Intro only*/
 	color: black;
 }
 h2 span{
-	vertical-align: middle;
+	position: relative; top: -0.07em;/*Because *some* browsers don't do vertical-align: middle correctly.*/
 	font-size: 0.6em;
 	color: #ffc747;
 }

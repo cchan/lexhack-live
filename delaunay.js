@@ -176,6 +176,6 @@ function redraw() {
   path.exit().remove();
   path.enter().append("path").attr("style",function(d,i){return "fill:"+colors[i];}).attr("d", String);
 }
-var drawinterval = setInterval(redraw,200);
+var drawinterval = setInterval(redraw,250);
 $(window).blur(function(){clearInterval(drawinterval);});
-$(window).focus(function(){drawinterval = setInterval(redraw,200);});
+$(window).focus(function(){drawinterval = setInterval(redraw,250);});
