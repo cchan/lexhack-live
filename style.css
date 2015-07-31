@@ -21,6 +21,7 @@
 
 
 
+/*https://css-tricks.com/custom-scrollbars-in-webkit/*/
 /* Let's get this party started */
 ::-webkit-scrollbar {
     width: 0.8vw;
@@ -77,11 +78,11 @@ h1{
 	font-size:8em;
 	display:block;
 	font-weight: bold;
-	//font-variant: small-caps; /*for Intro*/
 }
 @media (min-width: 2000px){
 	h1{margin-top: 30vh;}
 }
+h1 .first-letter{font-size: 1.15em;} /*For Intro only*/
 #live{
 	font-size: 4em;
 	margin: 0;
@@ -127,8 +128,8 @@ h2 span{
 	left: -200px;
 }
 #caption span{
-	display: inline-block; //Preferentially wrap between those two parts
-						//then if needed wrap more as necessary
+	display: inline-block; /*Preferentially wrap between those two parts
+						then if needed wrap more as necessary*/
 }
 
 #button{
