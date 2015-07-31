@@ -56,7 +56,7 @@ body{
 	margin:0;
 	padding:0;
 	overflow-x:hidden;
-	overflow-y: scroll;
+	overflow-y:scroll;
 }
 @media (min-width: 2000px){
 	body{font-size: 1em;}
@@ -71,7 +71,7 @@ body{
 	body{font-size: 0.25em;}
 }
 #wrapper{
-	padding:3em;
+	padding:0 3em;
 	margin:0;
 }
 
@@ -90,7 +90,7 @@ h1 .first-letter{font-size: 1.15em;} /*For Intro only*/
 #live{
 	font-size: 4em;
 	margin: 0;
-	margin-bottom: 0.6em;
+	margin-bottom: 0.8em;
 	color: black;
 }
 h2 span{
@@ -125,7 +125,7 @@ h2 span{
 
 #caption{
 	max-width: 100%;
-	margin-top: 1em;
+	margin-top: 0.5em;
 	font-size: 3.5em;
 	text-align:center;
 	
@@ -143,11 +143,12 @@ h2 span{
 	font-size: 2em;
 	padding: 1.5em 2em;
 	margin-top: 1.5em;
+	margin-bottom: 1.5em;
 	color: white;
 	transition: background-color 0.3s, top 1s, opacity 1s; /*conflicts :( */
 	display: inline-block;
 	
-	top: 100px;
+	top: 0px; /*To be changed by JS to 100px. To prevent improper sizing of the canvas by being down there.*/
 }
 #button:hover{
 	background-color: rgba(71, 154, 255, 1.0);
