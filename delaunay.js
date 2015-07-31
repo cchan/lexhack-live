@@ -85,15 +85,18 @@ function doResize(){
 function redraw() {
   for(var i = 4; i < points; i++){
 	if(vertices[i][0] < 0 || vertices [i][0] > width) vertexvels[i][0] *= -1;
-	if(vertices[i][1]>height/3 && vertices[i][1]<2*height/3){
+	if(vertices[i][1] > height/3 && vertices[i][1] < 2*height/3){
+		if(vertices[i][1] + vertexvels[i][1]/10 < 0 || vertices[i][1] + vertexvels[i][1]/10 > height) vertexvels[i][1] *= -1;
+		if(vertices[i][0] + vertexvels[i][0]/4 < 0 || vertices[i][0] + vertexvels[i][0]/4 > height) vertexvels[i][0] *= -1;
 		vertices[i][1] += vertexvels[i][1]/10; //slow down while in the detail zone
 		vertices[i][0] += vertexvels[i][0]/4;
 	}
 	else{
+		if(vertices[i][1] + vertexvels[i][1] < 0 || vertices[i][1] + vertexvels[i][1] > height) vertexvels[i][1] *= -1;
+		if(vertices[i][0] + vertexvels[i][0] < 0 || vertices[i][0] + vertexvels[i][0] > height) vertexvels[i][0] *= -1;
 		vertices[i][1] += vertexvels[i][1];
 		vertices[i][0] += vertexvels[i][0];
 	}
-	if(vertices[i][1] < 0 || vertices [i][1] > height) vertexvels[i][1] *= -1;
   }
   var colors = [];
   path = path.data(d3.geom.delaunay(vertices).map(function(d,elemInd) {
