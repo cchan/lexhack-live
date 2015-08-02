@@ -88,9 +88,13 @@
 		slider("#button",1500);
 		slider("#live",2000);
 		setTimeout(function(){
+			delaunay.redraw();//First draw when the canvas starts fading in
 			$("#delaunay").css({opacity:0.6});
-			$("#button").css({top:"100px"});
+			$("#button").css({top:"100px"}); //so the window size isn't messed up
 		},500);
+		setTimeout(function(){
+			delaunay.start();
+		},2000); //start after all the stuff has slid in
 	});
 	</script>
 	<script src="delaunay.js"></script>
