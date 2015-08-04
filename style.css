@@ -20,7 +20,7 @@
 .slider{
 	position: relative;
 	opacity: 0;
-	transition: left 1s, top 1s, right 1s, bottom 1s, opacity 1s;
+	transition: left 0.7s, top 0.7s, right 0.7s, bottom 0.7s, opacity 0.7s;
 }
 
 
@@ -73,6 +73,7 @@ body{
 #wrapper{
 	padding:0 3em;
 	margin:0;
+	text-align: center;
 }
 
 h1{
@@ -119,7 +120,7 @@ h2 span{
 @media (min-width: 800px){
 	#clock2{display:none;}
 }
-@media (max-width: 800px){
+@media (max-width: 801px){ /*Oddly enough, at exactly 800 it would both disappear. Lol.*/
 	#clock{display:none;}
 }
 
@@ -136,22 +137,29 @@ h2 span{
 						then if needed wrap more as necessary*/
 }
 
-#button{
-	background-color: rgba(71, 154, 255, 0.8);
+#button1, #button2, #button3{
 	text-decoration: none;
 	border-radius: 8px;
 	font-size: 2em;
-	padding: 1.5em 2em;
-	margin-top: 1.5em;
-	margin-bottom: 1.5em;
-	color: white;
+	padding: 1.5em 0.5em;
+	margin: 1.2em 1.2em 0.5em 1.2em;
+	width: 14em;
+	
 	transition: background-color 0.3s, top 1s, opacity 1s; /*conflicts :( */
 	display: inline-block;
 	
 	top: 0px; /*To be changed by JS to 100px. To prevent improper sizing of the canvas by being down there.*/
 }
-#button:hover{
-	background-color: rgba(71, 154, 255, 1.0);
+#button1{background-color: rgba(0, 0, 0, 0.8); color: rgb(255, 199, 71);} /*orange on black*/
+#button1:hover{background-color: rgba(0, 0, 0, 1.0);}
+#button2{background-color: rgba(255, 199, 71, 0.8); color: #000;} /*black on orange*/
+#button2:hover{background-color: rgba(255, 199, 71, 1.0);}
+#button3{background-color: rgba(71, 154, 255, 0.8); color: #fff;} /*white on blue*/
+#button3:hover{background-color: rgba(71, 154, 255, 1.0);}
+#button2{font-size: 2.2em;}
+@media (max-width: 65em){
+	#button1, #button2, #button3{display: block; margin-left: auto; margin-right: auto;}
+	#caption>span{display:block;} /*So the buttons won't be alone in linebreaking.*/
 }
 
 svg#delaunay{

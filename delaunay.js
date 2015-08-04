@@ -2,9 +2,21 @@
 //Extremely modified from http://bl.ocks.org/mbostock/4341156
 
 (function(delaunay, $, undefined){ //http://stackoverflow.com/a/5947280
-	var frameDelayMS = 333;
+	var frameDelayMS = 250;
 	var pointSpeed = 4;
 	
+	var points = 500; //default value
+	var isMobile = true; //default value
+	$(function(){
+		isMobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) //http://stackoverflow.com/a/3540295/1181387
+			|| $(document).innerWidth() < 600);
+		if(isMobile)console.log("Mobile device detected!");
+		
+		if(isMobile)
+			points = 500; //It's not an animation, basically doesn't matter how many points
+		else
+			points = 150 + $(window).width()/5;
+	});
 	
 	/*****Get the canvas image data*****/
 	//http://stackoverflow.com/a/1041492/1181387
@@ -27,11 +39,10 @@
 	
 	
 	/*****Initialize vertices, velocities, and SVG properties (width, height) ON LOAD.*****/
-	var width, height, vertices, svg, vertexvels, path, points;
+	var width, height, vertices, svg, vertexvels, path;
 	$(function(){
 		width = $(document).innerWidth();
 		height = $(document).height();
-		points = Math.floor($(document).width()/5) + 100; //Estimation. If it's mobile it probably wants less.
 		console.log("Initialized Delaunay triangulation with "+points+" vertices.");
 		
 		//Initialize vertices
@@ -124,7 +135,8 @@
 	/*****Stopping and Starting*****/
 	var drawinterval;
 	delaunay.start = function(){
-		drawinterval = setInterval(delaunay.redraw,frameDelayMS);
+		if(!isMobile) //Don't actually animate if it's mobile.
+			drawinterval = setInterval(delaunay.redraw,frameDelayMS);
 	};
 	delaunay.pause = function(){
 		clearInterval(drawinterval);

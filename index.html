@@ -5,16 +5,16 @@
 	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<meta name='description' content='LexHack is a 12 hour hackathon for high schoolers of all programming abilities. [Live event website]'>
-	<meta name='author' content='Clive Chan'>
+	<meta name='author' content='Clive Chan (http://clive.io)'>
 	<title>LexHack</title>
 	<link rel='icon' type='image/ico' href='favicon.ico'>
 	
 	<link rel="stylesheet" href="style.css">
 	<noscript><!-- lol -->
 		<style>
-			#clock, #caption, #button, #live{left: 0; opacity: 1;}
+			#clock, #caption, #live{left: 0; opacity: 1;}
 			#delaunay{opacity:0.6}
-			#button{display:inline-block;}
+			#button1, #button2, #button3{display:inline-block;}
 		</style>
 	</noscript>
 </head>
@@ -48,7 +48,9 @@
 		<span style="color:#444">opening ceremony</span> <span style="color:#eee"><span>Sept. 19, 2015, 9AM</span> <span>@ LHS Auditorium</span></span>
 	</div>
 	
-	<a href="http://lexhack.org" id="button" class="slider">Main Website</a>
+	<a href="http://lexhack.org/mentor-registration.html" id="button1" class="slider">Mentor Registration</a>
+	<a href="http://lexhack.org/registration.html" id="button2" class="slider">Hacker Registration</a>
+	<a href="http://lexhack.org" id="button3" class="slider">Main Website</a>
 </div>
 
 <canvas id="testcanvas" style="display:none;"></canvas>
@@ -85,13 +87,18 @@
 		
 		slider("#clock,#clock2",500);
 		slider("#caption",1000);
-		slider("#button",1500);
+		slider("#button1",1500);
+		slider("#button2",1630);
+		slider("#button3",1760);
 		slider("#live",2000);
 		setTimeout(function(){
 			delaunay.redraw();//First draw when the canvas starts fading in
 			$("#delaunay").css({opacity:0.6});
-			$("#button").css({top:"100px"}); //so the window size isn't messed up
+			$("#button1").css({top:"20px"});
+			$("#button2").css({top:"20px"});
+			$("#button3").css({top:"20px"}); //so the window size isn't messed up on initial measurement
 		},500);
+		
 		setTimeout(function(){
 			delaunay.start();
 		},2000); //start after all the stuff has slid in
