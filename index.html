@@ -8,25 +8,22 @@
 	<meta name='author' content='Clive Chan (http://clive.io)'>
 	<title>LexHack</title>
 	<link rel='icon' type='image/ico' href='favicon.ico'>
-	
 	<link rel="stylesheet" href="style.css">
-	<noscript><!-- lol -->
-		<style>
-			#clock, #caption, #live{left: 0; opacity: 1;}
-			#delaunay{opacity:0.6}
-			#button1, #button2, #button3{display:inline-block;}
-		</style>
-	</noscript>
 </head>
 <body>
+<script>
+document.body.className="hasJS";
+</script>
 <div id="wrapper">
 	<h1>
-		<a href="http://lexhack.org" style="text-decoration:none;">
+		<a href="http://lexhack.org" style="text-decoration:none;color:black;">
 			<span style='color:#fff;'>&lt;&nbsp;<span class="first-letter">L</span>ex</span><span style='color:#ffc747'><span class="first-letter">H</span>ack&nbsp;&gt;</span>
 		</a>
 	</h1>
-	<h2 id="live" class="slider">
-		{<span>live</span>}
+	<h2 id="live">
+		<a href="http://live.lexhack.org" style="text-decoration:none;color:black;">
+			{<span>live</span>}
+		</a>
 	</h2>
 	<table id="clock" class="slider">
 		<tr>
@@ -51,8 +48,7 @@
 	</div>
 	
 	<style>.heightless{font-size:4em;height:0;overflow-y:visible;margin-top:1.5em;margin-bottom:-1.5em;}</style>
-	<div id="spots150" class="slider heightless">150 spots.</div>
-	<div id="dontwait" class="slider heightless">Don't wait.</div>
+	<div class="heightless"><span id="spots150" class="slider">150 spots.</span> <span id="dontwait" class="slider">Don't wait.</span></div>
 	
 	<a href="http://lexhack.org/mentor-registration.html" id="button1" class="slider">Mentor Registration</a>
 	<a href="http://lexhack.org/registration.html" id="button2" class="slider">Hacker Registration</a>
@@ -63,68 +59,46 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script>
-	$(function(){
-		//TIMER
-		function updateTime(){
-			var result = "";
-			var totalSec = (Date.parse("Sep 19 2015 9:00:00 AM") - Date.now())/1000;
-			var days = parseInt( totalSec / 86400 );
-			var hours = parseInt( totalSec / 3600 ) % 24;
-			var minutes = parseInt( totalSec / 60 ) % 60;
-			var seconds = totalSec % 60;
-			var seconds = Math.floor(seconds);
+<script src="delaunay.js"></script>
+<script src="sequencer.js"></script>
+<script>
+$(function(){
+	//TIMER
+	function updateTime(){
+		var result = "";
+		var totalSec = (Date.parse("Sep 19 2015 9:00:00 AM") - Date.now())/1000;
+		var days = parseInt( totalSec / 86400 );
+		var hours = parseInt( totalSec / 3600 ) % 24;
+		var minutes = parseInt( totalSec / 60 ) % 60;
+		var seconds = totalSec % 60;
+		var seconds = Math.floor(seconds);
 
-			$(".d").html(days < 10 ? "0" + days : days);
-			$(".h").html(hours < 10 ? "0" + hours : hours);
-			$(".m").html(minutes < 10 ? "0" + minutes : minutes);
-			$(".s").html(seconds < 10 ? "0" + seconds : seconds);
-		}
-		updateTime();
+		$(".d").html(days < 10 ? "0" + days : days);
+		$(".h").html(hours < 10 ? "0" + hours : hours);
+		$(".m").html(minutes < 10 ? "0" + minutes : minutes);
+		$(".s").html(seconds < 10 ? "0" + seconds : seconds);
+	}
+	updateTime();
+	setInterval(updateTime,1000);
+	
+	
+	sequencer.slidein("#clock,#clock2",500,function(){ //Basically when all the stuff has loaded. Pretty arbitrary. Looks nice fading in with clock, though.
+		$("#button1,#button2,#button3").css({top:"-20px"}); //so the window size isn't messed up on initial measurement
 		
-		//SLIDE-INS
-		var currentSliderTime = 0;
-		function slider(sel, msDelay){
-			currentSliderTime += msDelay;
-			setTimeout(function(){
-				$(sel).css({top:0,left:0,right:0,bottom:0,opacity:1});
-			},currentSliderTime);
-		}
-		function slideout(sel, msDelay, css){
-			currentSliderTime += msDelay;
-			setTimeout(function(){
-				if(!css)var css={};
-				css.opacity = 0;
-				$(sel).css(css);
-			},currentSliderTime);
-		}
-		
-		setInterval(updateTime,1000);
-		
-		slider("#clock,#clock2",500);
-		slider("#caption",500);
-		
-		slider("#spots150",1000);
-		slideout("#spots150",1500);
-		slider("#dontwait",300);
-		slideout("#dontwait",1500);
-		
-		slider("#button1",300);
-		slider("#button3",130);
-		slider("#button2",130);
-		//slider("#live",2000);
-		
-		setTimeout(function(){
-			delaunay.redraw();//First draw when the canvas starts fading in
-			$("#delaunay").css({opacity:0.6});
-			$("#button1,#button2,#button3").css({top:"20px"}); //so the window size isn't messed up on initial measurement
-		},500);
-		
-		setTimeout(function(){
-			delaunay.start();
-		},2000); //start after all the stuff has slid in
+		//First draw when the canvas starts fading in
+		$("#delaunay").css({opacity:0.6});
+		delaunay.redraw();
 	});
-	</script>
-	<script src="delaunay.js"></script>
+	sequencer.slidein("#caption",500);
+	
+	sequencer.slidein("#spots150",500);
+	sequencer.slidein("#dontwait",1000);
+	sequencer.fadeout("#spots150,#dontwait",1000);
+	
+	sequencer.slidein("#button1",200);
+	sequencer.slidein("#button2",130);
+	sequencer.slidein("#button3",130,delaunay.start);//start after all the stuff has slid in
+});
+</script>
 </body>
 </html>
