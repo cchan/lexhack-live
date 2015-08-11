@@ -21,7 +21,9 @@
 <body>
 <div id="wrapper">
 	<h1>
-		<span style='color:#fff;'>&lt;&nbsp;<span class="first-letter">L</span>ex</span><span style='color:#ffc747'><span class="first-letter">H</span>ack&nbsp;&gt;</span>
+		<a href="http://lexhack.org" style="text-decoration:none;">
+			<span style='color:#fff;'>&lt;&nbsp;<span class="first-letter">L</span>ex</span><span style='color:#ffc747'><span class="first-letter">H</span>ack&nbsp;&gt;</span>
+		</a>
 	</h1>
 	<h2 id="live" class="slider">
 		{<span>live</span>}
@@ -108,9 +110,10 @@
 		slideout("#dontwait",1500);
 		
 		slider("#button1",300);
-		slider("#button2",130);
 		slider("#button3",130);
+		slider("#button2",130);
 		//slider("#live",2000);
+		
 		setTimeout(function(){
 			delaunay.redraw();//First draw when the canvas starts fading in
 			$("#delaunay").css({opacity:0.6});
