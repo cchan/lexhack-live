@@ -48,6 +48,10 @@
 		<span style="color:#444">opening ceremony</span> <span style="color:#eee"><span>Sept. 19, 2015, 9AM</span> <span>@ LHS Auditorium</span></span>
 	</div>
 	
+	<style>.heightless{font-size:4em;height:0;overflow-y:visible;margin-top:1.5em;margin-bottom:-1.5em;}</style>
+	<div id="spots150" class="slider heightless">150 spots.</div>
+	<div id="dontwait" class="slider heightless">Don't wait.</div>
+	
 	<a href="http://lexhack.org/mentor-registration.html" id="button1" class="slider">Mentor Registration</a>
 	<a href="http://lexhack.org/registration.html" id="button2" class="slider">Hacker Registration</a>
 	<a href="http://lexhack.org" id="button3" class="slider">Main Website</a>
@@ -77,26 +81,40 @@
 		updateTime();
 		
 		//SLIDE-INS
-		function slider(sel, ms){
+		var currentSliderTime = 0;
+		function slider(sel, msDelay){
+			currentSliderTime += msDelay;
 			setTimeout(function(){
 				$(sel).css({top:0,left:0,right:0,bottom:0,opacity:1});
-			}, ms);
+			},currentSliderTime);
+		}
+		function slideout(sel, msDelay, css){
+			currentSliderTime += msDelay;
+			setTimeout(function(){
+				if(!css)var css={};
+				css.opacity = 0;
+				$(sel).css(css);
+			},currentSliderTime);
 		}
 		
 		setInterval(updateTime,1000);
 		
 		slider("#clock,#clock2",500);
-		slider("#caption",1000);
-		slider("#button1",1500);
-		slider("#button2",1630);
-		slider("#button3",1760);
-		slider("#live",2000);
+		slider("#caption",500);
+		
+		slider("#spots150",1000);
+		slideout("#spots150",1500);
+		slider("#dontwait",300);
+		slideout("#dontwait",1500);
+		
+		slider("#button1",300);
+		slider("#button2",130);
+		slider("#button3",130);
+		//slider("#live",2000);
 		setTimeout(function(){
 			delaunay.redraw();//First draw when the canvas starts fading in
 			$("#delaunay").css({opacity:0.6});
-			$("#button1").css({top:"20px"});
-			$("#button2").css({top:"20px"});
-			$("#button3").css({top:"20px"}); //so the window size isn't messed up on initial measurement
+			$("#button1,#button2,#button3").css({top:"20px"}); //so the window size isn't messed up on initial measurement
 		},500);
 		
 		setTimeout(function(){
