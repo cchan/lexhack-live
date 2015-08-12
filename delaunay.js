@@ -122,6 +122,8 @@
 		vertices[1] = [width,0];
 		vertices[2] = [0,height];
 		vertices[3] = [width,height];
+		
+		delaunay.redraw();
 	}
 	
 	//https://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
