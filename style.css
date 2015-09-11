@@ -149,7 +149,7 @@ h2 span{
 #button2:hover{background-color: rgba(255, 199, 71, 1.0);}
 #button3{background-color: rgba(71, 154, 255, 0.8); color: #fff;} /*white on blue*/
 #button3:hover{background-color: rgba(71, 154, 255, 1.0);}
-#button2{font-size: 2.2em;}
+#button2{font-size: 2.4em;}
 @media (max-width: 65em){
 	#button1, #button2, #button3{display: block; margin-left: auto; margin-right: auto;}
 	#caption>span{display:block;} /*So the buttons won't be alone in linebreaking.*/

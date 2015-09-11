@@ -55,6 +55,7 @@ document.body.className="hasJS";
 	<a href="http://lexhack.org" id="button3" class="slider">Main Website</a>
 </div>
 
+<!--img src="LHSAuditorium.jpg" style="position:fixed;top:0;left:0;bottom:0;right:0;width:100%;z-index:-10000;" /-->
 <canvas id="testcanvas" style="display:none;"></canvas>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
@@ -77,6 +78,12 @@ $(function(){
 		$(".h").html(hours < 10 ? "0" + hours : hours);
 		$(".m").html(minutes < 10 ? "0" + minutes : minutes);
 		$(".s").html(seconds < 10 ? "0" + seconds : seconds);
+		
+		//Pulsing background. Doesn't look very good.
+		/*$("#delaunay").css({transition:"opacity 0.25s",opacity:0.5});
+		setTimeout(function(){
+			$("#delaunay").css({opacity:0.8});
+		},250);*/
 	}
 	updateTime();
 	setInterval(updateTime,1000);
