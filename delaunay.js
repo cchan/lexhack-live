@@ -1,13 +1,17 @@
 //Delaunay Triangulation Background
 //Extremely modified from http://bl.ocks.org/mbostock/4341156
 
-(function(delaunay, $, undefined){ //http://stackoverflow.com/a/5947280
+(function(delaunay, $, d3, undefined){ //http://stackoverflow.com/a/5947280
 	var frameDelayMS = 250;
 	var pointSpeed = 4;
 	
 	var points = 500; //default value
 	var isMobile = true; //default value
-	$(function(){
+	var targetimgdata, targetimg;
+	
+	var width, height, vertices, svg, vertexvels, path;
+	
+	delaunay.init = function(imgsrc){
 		isMobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) //http://stackoverflow.com/a/3540295/1181387
 			|| $(document).innerWidth() < 600);
 		if(isMobile)console.log("Mobile device detected!");
@@ -16,34 +20,29 @@
 			points = 500; //It's not an animation, basically doesn't matter how many points
 		else
 			points = 150 + $(window).width()/5;
-	});
-	
-	/*****Get the canvas image data*****/
-	//http://stackoverflow.com/a/1041492/1181387
-	var targetimg = new Image();
-	targetimg.src = 'lh-big.png';
-	targetimg.crossOrigin = "Anonymous";//http://stackoverflow.com/a/27840082/1181387
-	
-	var testcanvas = document.createElement('canvas');
-	testcanvas.id = "testcanvas";
-	testcanvas.style.display = "none";
-	var testcontext = testcanvas.getContext('2d');
-	var targetimgdata;
-	
-	$(targetimg).one("load", function(){ //need to wait for image to load (http://stackoverflow.com/a/3877079/1181387)
-		testcontext.drawImage(targetimg, 0, 0);
-		targetimgdata = testcontext.getImageData(0, 0, targetimg.width, targetimg.height).data;
-			//this is a flat array: Pixel1 1 R, G, B, A, Pixel2 R, G, B, A, ...
-		$(targetimg).remove();
-		$("#testcanvas").remove();
-	}).each(function(){
-		if(this.complete)$(this).load();
-	});
-	
-	
-	/*****Initialize vertices, velocities, and SVG properties (width, height) ON LOAD.*****/
-	var width, height, vertices, svg, vertexvels, path;
-	$(function(){
+		
+		/*****Get the canvas image data*****/
+		//http://stackoverflow.com/a/1041492/1181387
+		targetimg = new Image();
+		targetimg.src = imgsrc;
+		targetimg.crossOrigin = "Anonymous";//http://stackoverflow.com/a/27840082/1181387
+		
+		var testcanvas = document.createElement('canvas');
+		testcanvas.id = "testcanvas";
+		testcanvas.style.display = "none";
+		var testcontext = testcanvas.getContext('2d');
+		
+		$(targetimg).one("load", function(){ //need to wait for image to load (http://stackoverflow.com/a/3877079/1181387)
+			testcontext.drawImage(targetimg, 0, 0);
+			targetimgdata = testcontext.getImageData(0, 0, targetimg.width, targetimg.height).data;
+				//this is a flat array: Pixel1 1 R, G, B, A, Pixel2 R, G, B, A, ...
+			$(targetimg).remove();
+			$("#testcanvas").remove();
+		}).each(function(){
+			if(this.complete)$(this).load();
+		});
+		
+		/*****Initialize vertices, velocities, and SVG properties (width, height) ON LOAD.*****/
 		width = $(document).innerWidth();
 		height = $(document).height();
 		console.log("Initialized Delaunay triangulation with "+points+" vertices.");
@@ -75,7 +74,7 @@
 			.attr("id", "delaunay");
 		
 		path = svg.append("g").selectAll("path");
-	});
+	};
 	
 	
 	/*****Drawing*****/
@@ -148,4 +147,4 @@
 	};
 	$(window).blur(function(){delaunay.pause();});
 	$(window).focus(function(){delaunay.start();});
-})(window.delaunay = window.delaunay || {}, jQuery);
+})(window.delaunay = window.delaunay || {}, window.jQuery, window.d3);

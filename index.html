@@ -23,6 +23,9 @@
 			{<span>live</span>}
 		</a>
 	</h2>
+	<h3 id="loading" style="height:0px; margin:0; position:relative; top:6em; font-size:2em;">
+		(loading...)
+	</h3>
 	<table id="clock" class="slider">
 		<tr>
 			<td><span class="d"></span><small>d</small></td>
@@ -61,6 +64,9 @@
 <script src="sequencer.js"></script>
 <script>
 $(function(){
+	$("#loading").css({opacity:0});
+	delaunay.init('lh-big.png');
+	
 	//TIMER
 	function updateTime(){
 		var result = "";

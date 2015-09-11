@@ -164,6 +164,9 @@ svg#delaunay{
 }
 .hasJS svg#delaunay{opacity:0;}
 
+#loading{display:none;transition: opacity 0.5s;}
+.hasJS #loading{display:block;}
+
 /*svg*/
 path{
 	stroke: transparent;
