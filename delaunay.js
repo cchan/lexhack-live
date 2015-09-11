@@ -24,7 +24,10 @@
 	targetimg.src = 'lh-big.png';
 	targetimg.crossOrigin = "Anonymous";//http://stackoverflow.com/a/27840082/1181387
 	
-	var testcontext = document.getElementById('testcanvas').getContext('2d');
+	var testcanvas = document.createElement('canvas');
+	testcanvas.id = "testcanvas";
+	testcanvas.style.display = "none";
+	var testcontext = testcanvas.getContext('2d');
 	var targetimgdata;
 	
 	$(targetimg).one("load", function(){ //need to wait for image to load (http://stackoverflow.com/a/3877079/1181387)

@@ -160,7 +160,7 @@ svg#delaunay{
 	z-index:-1000;
 	transition:opacity 1.5s;
 	background-color:white;/*lines more visible*/;
-	opacity: 0.6;
+	opacity: 0.9;
 }
 .hasJS svg#delaunay{opacity:0;}
 

@@ -7,13 +7,11 @@
 	<meta name='description' content='LexHack is a 12 hour hackathon for high schoolers of all programming abilities. [Live event website]'>
 	<meta name='author' content='Clive Chan (http://clive.io)'>
 	<title>LexHack</title>
+	<script>document.documentElement.className += " hasJS";</script>
 	<link rel='icon' type='image/ico' href='favicon.ico'>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<script>
-document.body.className="hasJS";
-</script>
 <div id="wrapper">
 	<h1>
 		<a href="http://lexhack.org" style="text-decoration:none;color:black;">
@@ -55,8 +53,7 @@ document.body.className="hasJS";
 	<a href="http://lexhack.org" id="button3" class="slider">Main Website</a>
 </div>
 
-<!--img src="LHSAuditorium.jpg" style="position:fixed;top:0;left:0;bottom:0;right:0;width:100%;z-index:-10000;" /-->
-<canvas id="testcanvas" style="display:none;"></canvas>
+<!--img src="LHSAuditorium.jpg" style="position:fixed;top:0;left:0;bottom:0;right:0;width:100%;z-index:-10000;"-->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -93,7 +90,7 @@ $(function(){
 		$("#button1,#button2,#button3").css({top:"-20px"}); //so the window size isn't messed up on initial measurement
 		
 		//First draw when the canvas starts fading in
-		$("#delaunay").css({opacity:0.6});
+		$("#delaunay").css({opacity:0.7});
 		delaunay.redraw();
 	});
 	sequencer.slidein("#caption",500);
